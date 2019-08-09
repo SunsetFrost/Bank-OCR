@@ -1,0 +1,62 @@
+<template>
+  <div class="home">
+    <section class="content">
+      <h1>银行卡OCR识别</h1>
+      <img alt="Vue logo" class="btn-group" src="../assets/logo.png">
+      <van-cell-group>
+        <van-field 
+          left-icon="contact"
+          v-model="username" 
+          placeholder="请输入用户名" 
+          class="test"
+        />
+        <van-field
+          left-icon="notes-o"
+          type="password"
+          v-model="pwd"
+          placeholder="请输入密码"
+        />
+      </van-cell-group>
+      <van-button type="info" size="large" style="margin-top: 20px">登录</van-button>
+    </section>
+    <home-footer></home-footer>
+  </div>
+</template>
+
+<script>
+import Vue from 'vue';
+import { Button, Field, CellGroup } from 'vant';
+import HomeFooter from '../components/Footer';
+
+Vue.use(Button);
+Vue.use(Field);
+Vue.use(CellGroup);
+
+export default {
+    name: 'login',
+
+    data() {
+      return {
+        username: '',
+        pwd: '',
+      }
+    },
+
+    components: {
+      HomeFooter,
+    }
+}
+</script>
+
+<style scoped>
+  .home {
+    padding: 40px 40px;
+  }
+  .btn-group {
+    margin-bottom: 35px;
+  }
+  .test {
+    margin-right: 15px;
+  }
+</style>
+
