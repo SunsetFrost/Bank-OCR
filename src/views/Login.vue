@@ -17,7 +17,7 @@
           placeholder="请输入密码"
         />
       </van-cell-group>
-      <van-button type="info" size="large" style="margin-top: 20px">登录</van-button>
+      <van-button type="info" size="large" style="margin-top: 20px" @click="login()">登录</van-button>
     </section>
     <home-footer></home-footer>
   </div>
@@ -27,6 +27,9 @@
 import Vue from 'vue';
 import { Button, Field, CellGroup } from 'vant';
 import HomeFooter from '../components/Footer';
+import {
+  userLogin,
+} from '../service';
 
 Vue.use(Button);
 Vue.use(Field);
@@ -44,6 +47,17 @@ export default {
 
     components: {
       HomeFooter,
+    },
+
+    methods: {
+      async login() {
+        let result = await userLogin(this.username, this.pwd);
+        if(result.type === 'success') {
+          console.log(result);
+        } else {
+          console.log(result);
+        }
+      }
     }
 }
 </script>
