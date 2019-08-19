@@ -25,7 +25,7 @@
 
 <script>
 import Vue from 'vue';
-import { Button, Field, CellGroup } from 'vant';
+import { Button, Field, CellGroup, Notify } from 'vant';
 import HomeFooter from '../components/Footer';
 import {
   userLogin,
@@ -34,6 +34,7 @@ import {
 Vue.use(Button);
 Vue.use(Field);
 Vue.use(CellGroup);
+Vue.use(Notify);
 
 export default {
     name: 'login',
@@ -53,9 +54,9 @@ export default {
       async login() {
         let result = await userLogin(this.username, this.pwd);
         if(result.type === 'success') {
-          console.log(result);
+          Notify('登录成功');
         } else {
-          console.log(result);
+          Notify('用户名或密码不正确');
         }
       }
     }

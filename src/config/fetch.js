@@ -15,7 +15,6 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
 			url = url + '?' + dataStr;
 		}
     }
-
     
     let requestConfig = {
         credentials: 'include',
@@ -33,6 +32,8 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
         })
     }
 
+
+    console.log(requestConfig);
     try {
         const response = await fetch(url, requestConfig);
         const responseJson = await response.json();
