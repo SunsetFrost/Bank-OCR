@@ -1,10 +1,10 @@
 <template>
-    <div>扫描</div>
+    <div>卡片页</div>
 </template>
 
 <script>
 export default {
-    name: 'scan',
+    
 }
 </script>
 

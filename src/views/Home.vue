@@ -1,10 +1,28 @@
 <template>
     <div>
-        <router-view></router-view>
-        <van-tabbar v-model="active">
-            <van-tabbar-item icon="scan">扫描</van-tabbar-item>
-            <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-            <van-tabbar-item icon="user-o">我的</van-tabbar-item>
+        <router-view />
+        <van-tabbar route>
+            <van-tabbar-item 
+                replace
+                to="/scan"
+                icon="scan"
+            >
+                扫描
+            </van-tabbar-item>
+            <van-tabbar-item 
+                replace
+                to="/card"
+                icon="home-o"
+            >
+                首页
+            </van-tabbar-item>
+            <van-tabbar-item 
+                replace
+                to="/user"
+                icon="user-o"
+            >
+                我的
+            </van-tabbar-item>
         </van-tabbar>
     </div>
 </template>
