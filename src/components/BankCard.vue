@@ -11,12 +11,12 @@ import { Skeleton } from 'vant';
 Vue.use(Skeleton);
 
 export default {
-    data() {
-        return {
-            card: null,
-        }
-    }
-}
+  data() {
+    return {
+      card: null,
+    };
+  },
+};
 </script>
 
 <style lang="less" scoped>

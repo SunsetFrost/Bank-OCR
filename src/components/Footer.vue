@@ -6,8 +6,8 @@
 
 <script>
 export default {
-    name: 'homeFooter',
-}
+  name: 'homeFooter',
+};
 </script>
 
 <style scoped>

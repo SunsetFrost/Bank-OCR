@@ -2,21 +2,21 @@
     <div>
         <router-view />
         <van-tabbar route>
-            <van-tabbar-item 
+            <van-tabbar-item
                 replace
                 to="/scan"
                 icon="scan"
             >
                 扫描
             </van-tabbar-item>
-            <van-tabbar-item 
+            <van-tabbar-item
                 replace
                 to="/card"
                 icon="home-o"
             >
                 首页
             </van-tabbar-item>
-            <van-tabbar-item 
+            <van-tabbar-item
                 replace
                 to="/user"
                 icon="user-o"
@@ -34,6 +34,6 @@ import { Tabbar, TabbarItem } from 'vant';
 Vue.use(Tabbar).use(TabbarItem);
 
 export default {
-    name: 'home',
-}
+  name: 'home',
+};
 </script>

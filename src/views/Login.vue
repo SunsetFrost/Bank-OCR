@@ -4,10 +4,10 @@
       <h1>银行卡OCR识别</h1>
       <img alt="Vue logo" class="btn-group" src="../assets/logo.png">
       <van-cell-group>
-        <van-field 
+        <van-field
           left-icon="contact"
-          v-model="username" 
-          placeholder="请输入用户名" 
+          v-model="username"
+          placeholder="请输入用户名"
           class="test"
         />
         <van-field
@@ -25,8 +25,10 @@
 
 <script>
 import Vue from 'vue';
-import { Button, Field, CellGroup, Notify } from 'vant';
-import HomeFooter from '../components/Footer';
+import {
+  Button, Field, CellGroup, Notify,
+} from 'vant';
+import HomeFooter from '../components/Footer.vue';
 import {
   userLogin,
 } from '../service';
@@ -37,30 +39,30 @@ Vue.use(CellGroup);
 Vue.use(Notify);
 
 export default {
-    name: 'login',
+  name: 'login',
 
-    data() {
-      return {
-        username: '',
-        pwd: '',
+  data() {
+    return {
+      username: '',
+      pwd: '',
+    };
+  },
+
+  components: {
+    HomeFooter,
+  },
+
+  methods: {
+    async login() {
+      const result = await userLogin(this.username, this.pwd);
+      if (result.type === 'success') {
+        Notify('登录成功');
+      } else {
+        Notify('用户名或密码不正确');
       }
     },
-
-    components: {
-      HomeFooter,
-    },
-
-    methods: {
-      async login() {
-        let result = await userLogin(this.username, this.pwd);
-        if(result.type === 'success') {
-          Notify('登录成功');
-        } else {
-          Notify('用户名或密码不正确');
-        }
-      }
-    }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -74,4 +76,3 @@ export default {
     margin-right: 15px;
   }
 </style>
-

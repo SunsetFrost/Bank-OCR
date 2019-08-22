@@ -3,7 +3,7 @@ import Router from 'vue-router';
 
 import App from './App.vue';
 import Login from './views/Login.vue';
-import Home from  './views/Home.vue';
+import Home from './views/Home.vue';
 import User from './views/User.vue';
 import Scan from './views/Scan.vue';
 import Card from './views/Card.vue';
@@ -40,14 +40,14 @@ export default new Router({
               path: '/user',
               component: User,
             },
-          ]
+          ],
         },
         {
           path: '/login',
           component: Login,
         },
 
-      ]
+      ],
     },
   ],
 });

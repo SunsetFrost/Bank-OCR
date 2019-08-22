@@ -8,7 +8,9 @@
                 @search="onSearch"
             >
                 <div slot="action" @click="onSearch">
-                    <van-button icon="scan" type="info" size="small" style="margin: 0 12px;">拍照</van-button>
+                    <van-button icon="scan" type="info" size="small" style="margin: 0 12px;">
+                      拍照
+                    </van-button>
                 </div>
             </van-search>
         </section>
@@ -17,8 +19,8 @@
             <van-button icon="add-o" round  size="large">上传图片</van-button>
         </section>
         <section class="list">
-            <bank-card 
-                v-for="item in cardList" 
+            <bank-card
+                v-for="item in cardList"
                 :key="item"
             />
         </section>
@@ -28,30 +30,30 @@
 <script>
 import Vue from 'vue';
 import { Button, Search, List } from 'vant';
-import BankCard from  '../components/BankCard';
+import BankCard from '../components/BankCard.vue';
 
 Vue.use(Button);
 Vue.use(Search);
 Vue.use(List);
 
 export default {
-    data() {
-        return {
-            searchValue: '', // 银行卡搜索值
-            cardList: [1, 2, 3, 4, 5, 6, 7, 8],
-        }
-    },
+  data() {
+    return {
+      searchValue: '', // 银行卡搜索值
+      cardList: [1, 2, 3, 4, 5, 6, 7, 8],
+    };
+  },
 
-    components: {
-        BankCard,
-    },
+  components: {
+    BankCard,
+  },
 
-    methods: {
-        onSearch() {
-            return null;
-        }
-    }
-}
+  methods: {
+    onSearch() {
+      return null;
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

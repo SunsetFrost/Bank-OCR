@@ -25,8 +25,8 @@ Vue.use(Cell).use(CellGroup);
 Vue.use(Skeleton);
 
 export default {
-    
-}
+
+};
 </script>
 
 <style lang="less" scoped>
