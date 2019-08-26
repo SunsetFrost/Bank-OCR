@@ -1,7 +1,21 @@
 <template>
     <div class="container">
         <section class="user">
-            <van-skeleton title avatar :row="2" />
+            <div v-if="login" class="user-container">
+                已登录  
+            </div>
+            <div v-else class="login-container">
+                <div class="login-icon">
+                    <van-icon name="user-circle-o" size="70px" color="#1989fa"></van-icon>
+                </div>
+                <div class="login-info">
+                    <router-link to="/login">
+                        <h3 align="left">立即登录</h3>
+                    </router-link>
+                    <p>登陆后可解锁个人卡包等更多功能</p>
+                </div>
+
+            </div>
         </section>
         <section>
             <van-cell-group style="margin-bottom: 30px;">
@@ -19,12 +33,30 @@
 
 <script>
 import Vue from 'vue';
-import { Cell, CellGroup, Skeleton } from 'vant';
+import { mapState } from 'vuex';
+import { Cell, CellGroup, Icon, Skeleton } from 'vant';
 
 Vue.use(Cell).use(CellGroup);
+Vue.use(Icon);
 Vue.use(Skeleton);
 
 export default {
+    data() {
+        return {
+
+        }
+    },
+
+    mounted() {
+        console.log(this.login);
+    },
+
+    computed: {
+        ...mapState([
+            'login', 
+            'userInfo',
+        ]),
+    }
 
 };
 </script>
@@ -37,6 +69,31 @@ export default {
     .user {
         padding: 20px 12px;
         background: #fff;
+        .login-container {
+            display: flex;
+            flex: 1 1 auto;
+            justify-content: start;
+            margin-left: 20px;
+            .login-icon {
+                width: 80px;
+                height: 80px;
+            }
+            .login-info {
+                margin-left: 16px;
+                a {
+                    color: inherit;
+                }
+                h3 {
+                    align-content: left;
+                    margin: 10px 0px
+                }
+                p {
+                    font-size: 14px;
+                    color: #7d7e80;
+                    margin: 2px;
+                }
+            }
+        }
     }
 
 }

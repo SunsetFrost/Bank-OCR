@@ -5,6 +5,7 @@
 </template>
 
 <style lang="less">
+@import './style/common';
 html, body {
   width: 100%;
   height: 100%;
