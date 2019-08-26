@@ -48,7 +48,7 @@ export default {
     },
 
     mounted() {
-        console.log(this.login);
+
     },
 
     computed: {
@@ -57,7 +57,6 @@ export default {
             'userInfo',
         ]),
     }
-
 };
 </script>
 

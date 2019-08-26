@@ -17,7 +17,7 @@
           placeholder="请输入密码"
         />
       </van-cell-group>
-      <van-button type="info" size="large" style="margin-top: 20px" @click="login()">登录</van-button>
+      <van-button type="info" size="large" style="margin-top: 20px" @click="onLogin()">登录</van-button>
     </section>
     <home-footer></home-footer>
   </div>
@@ -25,6 +25,7 @@
 
 <script>
 import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
 import {
   Button, Field, CellGroup, Notify,
 } from 'vant';
@@ -48,16 +49,28 @@ export default {
     };
   },
 
+  computed: {
+      ...mapState([
+          'login', 
+          'userInfo',
+      ]),
+  },
+
   components: {
     HomeFooter,
   },
 
   methods: {
-    async login() {
-      const result = await userLogin(this.username, this.pwd);
-      if (result.type === 'success') {
-        Notify('登录成功');
-      } else {
+    ...mapMutations([
+      'RECORD_USERINFO',
+    ]),
+
+    async onLogin() {
+      try {
+        const result = await userLogin(this.username, this.pwd);
+        this.RECORD_USERINFO(result);
+        this.$router.push('/user');
+      } catch (error) {
         Notify('用户名或密码不正确');
       }
     },
