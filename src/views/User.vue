@@ -1,8 +1,14 @@
 <template>
     <div class="container">
         <section class="user">
-            <div v-if="login" class="user-container">
-                已登录  
+            <div v-if="login" class="login-container">
+                <div>
+                    <van-image round width="65" height="65" src="http://dummyimage.com/70x70/64b5f6/FFF&text=T"></van-image>
+                </div>
+                <div class="login-info">
+                    <h3 align="left">{{userInfo.username}}</h3>
+                    <p>用户ID： 2314532523544643</p>
+                </div>
             </div>
             <div v-else class="login-container">
                 <div class="login-icon">
@@ -14,7 +20,6 @@
                     </router-link>
                     <p>登陆后可解锁个人卡包等更多功能</p>
                 </div>
-
             </div>
         </section>
         <section>
@@ -24,7 +29,7 @@
             </van-cell-group>
             <van-cell-group>
                 <van-cell title="设置" is-link to="card" />
-                <van-cell title="注销" is-link to="card" />
+                <van-cell title="注销" is-link clickable @click="onLogout()" />
             </van-cell-group>
         </section>
         <section></section>
@@ -33,11 +38,19 @@
 
 <script>
 import Vue from 'vue';
-import { mapState } from 'vuex';
-import { Cell, CellGroup, Icon, Skeleton } from 'vant';
+import { mapState, mapMutatimapMutations, mapMutations } from 'vuex';
+import { 
+    Cell, 
+    CellGroup, 
+    Dialog,
+    Icon, 
+    Image, 
+    Skeleton,
+    } from 'vant';
 
 Vue.use(Cell).use(CellGroup);
 Vue.use(Icon);
+Vue.use(Image);
 Vue.use(Skeleton);
 
 export default {
@@ -56,6 +69,26 @@ export default {
             'login', 
             'userInfo',
         ]),
+    },
+
+    methods: {
+        ...mapMutations([
+            'OUT_LOGIN',
+        ]),
+
+        onLogout() {
+            console.log('trigger');
+            Dialog.confirm({
+                title: '注销',
+                message: '确定要退出当前账户吗？'
+            }).then(() => {
+                // on confirm
+                this.OUT_LOGIN();
+                console.log(this.login);
+            }).catch(() => {
+                // on cancel
+            });
+        }
     }
 };
 </script>
@@ -78,13 +111,13 @@ export default {
                 height: 80px;
             }
             .login-info {
-                margin-left: 16px;
+                margin-left: 18px;
                 a {
                     color: inherit;
                 }
                 h3 {
                     align-content: left;
-                    margin: 10px 0px
+                    margin: 6px 0px 14px 0px;
                 }
                 p {
                     font-size: 14px;

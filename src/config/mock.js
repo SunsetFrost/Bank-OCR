@@ -7,4 +7,5 @@ Mock.mock( DEV_URL + '/login', {
     'telephone': '@natural(100000000, 999999999)',
     'regis_time': "@date()",
     'role': "user",
+    'img': '@image(80x80, H)'
 })
