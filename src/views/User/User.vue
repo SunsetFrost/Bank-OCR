@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container">       
         <section class="user">
             <div v-if="login" class="login-container">
                 <div>
@@ -25,7 +25,7 @@
         <section>
             <van-cell-group style="margin-bottom: 30px;">
                 <van-cell title="我的银行卡" is-link to="cardList" />
-                <van-cell title="我的OCR记录" is-link to="scan" />
+                <van-cell title="我的OCR记录" is-link to="scanList" />
             </van-cell-group>
             <van-cell-group>
                 <van-cell title="设置" is-link to="card" />

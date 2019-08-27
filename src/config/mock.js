@@ -22,3 +22,29 @@ Mock.mock(DEV_URL + '/cards', {
         }
     ]
 })
+
+Mock.mock(DEV_URL + '/scan', {
+    'data|20': [
+        {
+           'log_id': '@natural(10000, 99999)',
+           'card': {
+               'id': '@natural(10000, 99999)',
+               'coordinate': {
+                   'x1': '@natural(100, 999)',
+                   'y1': '@natural(100, 999)',
+                   'x2': '@natural(100, 999)',
+                   'y2': '@natural(100, 999)',
+                   'x3': '@natural(100, 999)',
+                   'y3': '@natural(100, 999)',
+                   'x4': '@natural(100, 999)',
+                   'y4': '@natural(100, 999)',
+               }
+           },
+           'user_id': '@natural(10000, 99999)',
+           'start_scan_time': "@date()",
+           'time_consuming': "@date()",
+           'scan_result': '@boolean',
+           'scan_errmsg': '@cword(8)'
+        }
+    ]
+})

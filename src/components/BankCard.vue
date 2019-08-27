@@ -28,7 +28,7 @@ export default {
   data() {
     return {};
   },
-  props:['card'],
+  props: ['card'],
 };
 </script>
 

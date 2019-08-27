@@ -8,6 +8,7 @@ import User from './views/User/User.vue';
 import Scan from './views/Scan.vue';
 import Card from './views/Card.vue';
 import CardList from './views/CardList.vue';
+import ScanList from './views/ScanList/ScanList.vue';
 
 Vue.use(Router);
 
@@ -51,6 +52,10 @@ export default new Router({
               path: '/cardList',
               component: CardList,
             },
+            {
+              path: '/scanList',
+              component: ScanList,
+            }
           ],
         },
         {
