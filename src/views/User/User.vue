@@ -24,7 +24,7 @@
         </section>
         <section>
             <van-cell-group style="margin-bottom: 30px;">
-                <van-cell title="我的银行卡" is-link to="scan" />
+                <van-cell title="我的银行卡" is-link to="cardList" />
                 <van-cell title="我的OCR记录" is-link to="scan" />
             </van-cell-group>
             <van-cell-group>
@@ -77,14 +77,12 @@ export default {
         ]),
 
         onLogout() {
-            console.log('trigger');
             Dialog.confirm({
                 title: '注销',
                 message: '确定要退出当前账户吗？'
             }).then(() => {
                 // on confirm
                 this.OUT_LOGIN();
-                console.log(this.login);
             }).catch(() => {
                 // on cancel
             });

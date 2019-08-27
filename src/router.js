@@ -4,9 +4,10 @@ import Router from 'vue-router';
 import App from './App.vue';
 import Login from './views/Login.vue';
 import Home from './views/Home.vue';
-import User from './views/User.vue';
+import User from './views/User/User.vue';
 import Scan from './views/Scan.vue';
 import Card from './views/Card.vue';
+import CardList from './views/CardList.vue';
 
 Vue.use(Router);
 
@@ -39,6 +40,16 @@ export default new Router({
             {
               path: '/user',
               component: User,
+              // children: [
+              //   {
+              //     path: 'cardList',
+              //     component: CardList,
+              //   }
+              // ]
+            },
+            {
+              path: '/cardList',
+              component: CardList,
             },
           ],
         },
