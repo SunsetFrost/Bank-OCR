@@ -15,8 +15,8 @@
             </van-search>
         </section>
         <section class="btn-group">
-            <van-button color="#7232dd" icon="scan" round class="btn-primary">拍照</van-button>
-            <van-button icon="add-o" round>上传图片</van-button>
+            <van-button color="#7232dd" icon="scan" round class="btn-primary" @click="onScan()">拍照</van-button>
+            <van-button icon="add-o" round @click="onUpload()">上传图片</van-button>
         </section>
         <section class="list">
           <div class="card-title">
@@ -32,7 +32,7 @@
 
 <script>
 import Vue from 'vue';
-import { Button, Cell, Icon, Search, List, Panel } from 'vant';
+import { Button, Cell, Icon, Search, List, Panel, Toast } from 'vant';
 import BankCard from '../components/BankCard.vue';
 import {
   getCards,
@@ -44,6 +44,7 @@ Vue.use(Icon);
 Vue.use(Search);
 Vue.use(List);
 Vue.use(Panel);
+Vue.use(Toast);
 
 export default {
   data() {
@@ -69,7 +70,15 @@ export default {
     async getCardList() {
       const result = await getCards();
       this.cardList = result.data;
-    }
+    },
+
+    onScan() {
+      this.$router.push('/scan');
+    },
+
+    onUpload() {
+      Toast('功能暂未开放');
+    },
   },
 };
 </script>

@@ -28,7 +28,7 @@
                 <van-cell title="我的OCR记录" icon="scan" is-link to="scanList" />
             </van-cell-group>
             <van-cell-group>
-                <van-cell title="设置" icon="setting-o" is-link to="card" />
+                <van-cell title="设置" icon="setting-o" is-link clickable @click="onConfig()" />
                 <van-cell title="注销" icon="stop-circle-o" is-link clickable @click="onLogout()" />
             </van-cell-group>
         </section>
@@ -46,12 +46,14 @@ import {
     Icon, 
     Image, 
     Skeleton,
+    Toast,
     } from 'vant';
 
 Vue.use(Cell).use(CellGroup);
 Vue.use(Icon);
 Vue.use(Image);
 Vue.use(Skeleton);
+Vue.use(Toast);
 
 export default {
     data() {
@@ -86,7 +88,11 @@ export default {
             }).catch(() => {
                 // on cancel
             });
-        }
+        },
+
+        onConfig() {
+            Toast('功能暂未开放');
+        },
     }
 };
 </script>
