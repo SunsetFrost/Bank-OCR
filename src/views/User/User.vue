@@ -22,7 +22,7 @@
                 </div>
             </div>
         </section>
-        <section>
+        <section class="main">
             <van-cell-group style="margin-bottom: 30px;">
                 <van-cell title="我的银行卡" is-link to="cardList" />
                 <van-cell title="我的OCR记录" is-link to="scanList" />
@@ -125,6 +125,5 @@ export default {
             }
         }
     }
-
 }
 </style>

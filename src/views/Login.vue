@@ -2,7 +2,7 @@
   <div class="home">
     <section class="content">
       <h1>银行卡OCR识别</h1>
-      <img alt="Vue logo" class="btn-group" src="../assets/logo.png">
+      <img alt="Vue logo" class="img" src="../assets/logo.png" width="160">
       <van-cell-group>
         <van-field
           left-icon="contact"
@@ -78,12 +78,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
   .home {
     padding: 40px 40px;
+    .content {
+      text-align: center;
+      h1 {
+        font-size: 24px;
+        font-weight: 600;
+      }
+    }
   }
-  .btn-group {
-    margin-bottom: 35px;
+  .img {
+    margin: 24px 0px 36px 0px;
   }
   .test {
     margin-right: 15px;

@@ -20,5 +20,6 @@ export default {
     right: 0;
     bottom: 0;
     margin-bottom: 40px;
+    text-align: center;
 }
 </style>
