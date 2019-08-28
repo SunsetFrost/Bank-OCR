@@ -26,7 +26,7 @@ Mock.mock(DEV_URL + '/cards', {
 Mock.mock(DEV_URL + '/scan', {
     'data|20': [
         {
-           'log_id': '@natural(10000, 99999)',
+           'log_id': '@natural(10000000000000, 99999999999999)',
            'card': {
                'id': '@natural(10000, 99999)',
                'coordinate': {
@@ -44,7 +44,7 @@ Mock.mock(DEV_URL + '/scan', {
            'start_scan_time': "@date()",
            'time_consuming': "@date()",
            'scan_result': '@boolean',
-           'scan_errmsg': '@cword(8)'
+           'scan_errmsg': '@cword(2)'
         }
     ]
 })

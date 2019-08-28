@@ -3,7 +3,7 @@
         <section class="user">
             <div v-if="login" class="login-container">
                 <div>
-                    <van-image round width="65" height="65" src="http://dummyimage.com/70x70/64b5f6/FFF&text=T"></van-image>
+                    <van-image round width="60" height="60" src="http://dummyimage.com/70x70/64b5f6/FFF&text=T"></van-image>
                 </div>
                 <div class="login-info">
                     <h3 align="left">{{userInfo.username}}</h3>
@@ -24,12 +24,12 @@
         </section>
         <section class="main">
             <van-cell-group style="margin-bottom: 30px;">
-                <van-cell title="我的银行卡" is-link to="cardList" />
-                <van-cell title="我的OCR记录" is-link to="scanList" />
+                <van-cell title="我的银行卡" icon="credit-pay" is-link to="cardList" />
+                <van-cell title="我的OCR记录" icon="scan" is-link to="scanList" />
             </van-cell-group>
             <van-cell-group>
-                <van-cell title="设置" is-link to="card" />
-                <van-cell title="注销" is-link clickable @click="onLogout()" />
+                <van-cell title="设置" icon="setting-o" is-link to="card" />
+                <van-cell title="注销" icon="stop-circle-o" is-link clickable @click="onLogout()" />
             </van-cell-group>
         </section>
         <section></section>
@@ -115,7 +115,7 @@ export default {
                 }
                 h3 {
                     align-content: left;
-                    margin: 6px 0px 14px 0px;
+                    margin: 4px 0px 14px 0px;
                 }
                 p {
                     font-size: 14px;

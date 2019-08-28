@@ -10,20 +10,21 @@
             <van-dropdown-item v-model="value1" :options="option1" />
             <van-dropdown-item v-model="value2" :options="option2" />
         </van-dropdown-menu>
-        <section class="list">
+        <van-collapse v-model="activeNames" class="list">
             <scan-card v-for="item in scanList" :key="item.log_id" :scan="item"></scan-card>
-        </section>
+        </van-collapse>
     </div>
 </template>
 
 <script>
 import Vue from 'vue';
-import { Panel, DropdownItem, DropdownMenu, NavBar } from 'vant';
+import { Collapse, Panel, DropdownItem, DropdownMenu, NavBar } from 'vant';
 import ScanCard from './children/ScanCard.vue';
 import {
     getScans,
 } from '../../service';
 
+Vue.use(Collapse);
 Vue.use(Panel);
 Vue.use(DropdownMenu).use(DropdownItem);
 Vue.use(NavBar);
@@ -31,6 +32,7 @@ Vue.use(NavBar);
 export default {
     data() {
         return {
+            scanList: [],
             value1: 0,
             value2: 'a',
             option1: [
@@ -43,7 +45,7 @@ export default {
                 { text: '按扫描时间排序', value: 'b' },
                 { text: '按ID排序', value: 'c' },
             ],
-            scanList: [],
+            activeNames: []        
         }
     },
 
