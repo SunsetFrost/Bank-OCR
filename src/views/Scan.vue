@@ -60,6 +60,7 @@ export default {
       show: false,
       isScanFinish: false,
       card: card,
+      img,
     };
   },
 
@@ -96,6 +97,7 @@ export default {
       this.ctx.drawImage(video, 0, 0, 200, 200);         
       const canvas = document.getElementById('canvas');
       const uploadContent = canvas.toDataURL('image/png');
+      this.img = uploadContent;
      
       // 弹出Modal
       this.show = true;
@@ -106,9 +108,9 @@ export default {
 
     onConfirm() {
       if(this.isScanFinish) {
-
+        console.log(this.img);
       } else {
-        alert('尚未获取到银行卡结果')
+        console.log('尚未获取到银行卡结果');
       }
     },
 
