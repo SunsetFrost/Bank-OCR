@@ -1,9 +1,9 @@
 let baseUrl = '';
-const DEV_URL = 'http://localhost:9273';
+const DEV_URL = 'http://10.118.133.107:9273';
 const PRO_URL = 'http://10.206.192.81:9273';
 
 if (process.env.NODE_ENV == 'development') {
-  baseUrl = 'http://localhost:9273';
+  baseUrl = DEV_URL;
 } else if (process.env.NODE_ENV == 'production') {
   baseUrl = '';
 }

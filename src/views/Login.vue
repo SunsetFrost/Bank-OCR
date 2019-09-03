@@ -18,6 +18,7 @@
         />
       </van-cell-group>
       <van-button type="info" size="large" style="margin-top: 20px" @click="onLogin()">登录</van-button>
+      <p>未注册的用户将自动注册</p>
     </section>
     <home-footer></home-footer>
   </div>
@@ -68,8 +69,16 @@ export default {
     async onLogin() {
       try {
         const result = await userLogin(this.username, this.pwd);
-        this.RECORD_USERINFO(result);
-        this.$router.push('/user');
+        console.log(result);
+        if(result.status) {
+          this.RECORD_USERINFO({
+            username: this.username,
+            password: this.password,
+          });
+          this.$router.push('/user');
+        } else {
+          throw new Error(result.msg);
+        }
       } catch (error) {
         Notify('用户名或密码不正确');
       }
@@ -86,6 +95,10 @@ export default {
       h1 {
         font-size: 24px;
         font-weight: 600;
+      }
+      p {
+        margin: 12px 0px;
+        color: rgba(69,90,100,.6);
       }
     }
   }
