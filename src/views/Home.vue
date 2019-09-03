@@ -34,6 +34,10 @@ import { Tabbar, TabbarItem } from 'vant';
 Vue.use(Tabbar).use(TabbarItem);
 
 export default {
-  name: 'home',
+
 };
 </script>
+
+<style lang="less" scoped>
+
+</style>

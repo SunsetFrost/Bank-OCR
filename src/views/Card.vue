@@ -15,7 +15,7 @@
             </van-search>
         </section>
         <section class="btn-group">
-            <van-button color="#7232dd" icon="scan" round class="btn-primary" @click="onScan()">拍照</van-button>
+            <van-button color="#03a9f4" icon="scan" round class="btn-primary" @click="onScan()">拍照</van-button>
             <van-button icon="add-o" round @click="onUpload()">上传图片</van-button>
         </section>
         <section class="list">
