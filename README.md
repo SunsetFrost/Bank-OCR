@@ -1,4 +1,4 @@
-# itim-dxs-yhkocr-front-end
+# bank-ocr
 
 ## Project setup
 ```

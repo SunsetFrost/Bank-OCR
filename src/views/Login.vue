@@ -77,7 +77,7 @@ export default {
           });
           this.$router.push('/user');
         } else {
-          throw new Error(result.msg);
+          throw Error(result.msg);
         }
       } catch (error) {
         Notify('用户名或密码不正确');

@@ -5,7 +5,7 @@
         <van-overlay show="true"/>
         <van-button class="btn" @click="onCapture()">拍摄银行卡</van-button>
         <van-dialog
-          v-model="show"
+          v-model="dialogShow"
           show-cancel-button
           confirmButtonText="加入卡包"
           class="modal"
@@ -25,9 +25,9 @@
 <script>
 import Vue from 'vue';
 import { Button, Dialog, Overlay, Loading } from 'vant';
-import { async } from 'q';
-import { setInterval } from 'timers';
+import { setInterval, setTimeout } from 'timers';
 import BankCard from '../components/BankCard.vue';
+import { addScan } from '../service';
 
 Vue.use(Button);
 Vue.use(Dialog);
@@ -45,22 +45,16 @@ const constraints = {
   audio: false,
 };
 
-const card = {
-  card_id: 234546236,
-  card_number: 54232462345532526664,
-  card_type: '储蓄卡',
-}
-
 export default {
   data() {
     return {
       ctx: null,
       currentStream: null,
       video: null,
-      show: false,
+      dialogShow: false,
       isScanFinish: false,
-      card: card,
-      img,
+      card: null,
+      img: '',
     };
   },
 
@@ -96,11 +90,10 @@ export default {
       // 获取拍摄银行卡的base64内容
       this.ctx.drawImage(video, 0, 0, 200, 200);         
       const canvas = document.getElementById('canvas');
-      const uploadContent = canvas.toDataURL('image/png');
-      this.img = uploadContent;
-     
+      this.img = canvas.toDataURL('image/png');
+
       // 弹出Modal
-      this.show = true;
+      this.dialogShow = true;
 
       // 开始轮询请求分析状态
       this.rollingScanResult();
@@ -108,15 +101,26 @@ export default {
 
     onConfirm() {
       if(this.isScanFinish) {
-        console.log(this.img);
+        console.log('触发');
       } else {
         console.log('尚未获取到银行卡结果');
       }
     },
 
-    // 轮询扫描结果并更新状态
-    rollingScanResult() {
-      setInterval(this.getScanResult, 3000);
+    // // 轮询扫描结果并更新状态
+    async rollingScanResult() {
+      // setInterval(this.getScanResult, 3000);
+      const result = await addScan({
+        img: this.img,
+      })
+      console.log(result);
+
+      const card = {
+        card_id: 234546236,
+        card_number: 54232462345532526664,
+        card_type: '储蓄卡',
+      }
+      this.isScanFinish = true;
     },
 
     // 查询扫描结果

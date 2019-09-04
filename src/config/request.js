@@ -54,7 +54,6 @@ export default async (url = "", data = {}, type = "GET", method = "ajax") => {
 
       let sendData = "";
       if (type == "POST") {
-        console.log(data);
         sendData = JSON.stringify(data);
       }
 

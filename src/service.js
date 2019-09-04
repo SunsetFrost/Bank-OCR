@@ -15,3 +15,7 @@ export const getCards = (query) => request('/cards', query);
  * 获取扫描列表
  */
 export const getScans = (query) => request('/scan', query);
+/**
+ * 增加扫描记录
+ */
+export const addScan = (data) => request('/scan', data, 'POST');
