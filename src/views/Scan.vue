@@ -24,11 +24,11 @@
 
 <script>
 import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
 import { Button, Dialog, Overlay, Loading, Notify } from 'vant';
 import { setInterval, setTimeout } from 'timers';
 import BankCard from '../components/BankCard.vue';
 import { addScan, addCard } from '../service';
-import { mapState } from 'vuex';
 
 Vue.use(Button);
 Vue.use(Dialog);
@@ -37,8 +37,8 @@ Vue.use(Loading);
 
 const videoConstraints = {
   facingMode: 'environment',
-  width: 200, 
-  height: 200,
+  width: 250,
+  height: 200
 };
 
 const constraints = {
@@ -91,7 +91,7 @@ export default {
           throw new Error('该设备没有摄像头');
         }
       } catch (error) {
-        Notify(error);
+        Notify('无法获取摄像设备');
       }
     },
     // 拍摄
@@ -117,7 +117,7 @@ export default {
         // 新增银行卡记录
         const result = await addCard({
           number: 54232462345532526664,
-          user_id: this.userInfo.username,
+          user_id: this.userInfo.id,
           type: '储蓄卡',
           bank: '招商银行',
         })
@@ -131,8 +131,7 @@ export default {
     // 获取扫描结果并更新状态
     async getScanResult() {
       const result = await addScan({
-        user_id: this.userInfo.username,
-        img: this.img,
+        user_id: this.userInfo.id,
       })
 
     // 模拟请求

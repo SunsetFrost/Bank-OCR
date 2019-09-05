@@ -23,7 +23,7 @@
             <van-icon name="debit-pay" size="20px"/>
             <span>最近添加的银行卡</span>
           </div>
-          <van-cell v-for="item in cardList" :key="item.card_id">
+          <van-cell v-if="cardList.length" v-for="item in cardList" :key="item.card_id">
             <bank-card :card="item"/>
           </van-cell>
         </section>
@@ -32,6 +32,7 @@
 
 <script>
 import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
 import { Button, Cell, Icon, Search, List, Panel, Toast } from 'vant';
 import BankCard from '../components/BankCard.vue';
 import {
@@ -55,8 +56,17 @@ export default {
   },
 
   mounted() {
-    this.getCardList();
+    this.getCardList({
+      user_id: this.userInfo.id,
+    });
   },
+
+  computed: {
+      ...mapState([
+          'login', 
+          'userInfo',
+      ]),
+  },  
 
   components: {
     BankCard,
@@ -68,7 +78,9 @@ export default {
     },
 
     async getCardList() {
-      const result = await getCards();
+      const result = await getCards({
+        user_id: this.userInfo.id,
+      });
       this.cardList = result.data;
     },
 

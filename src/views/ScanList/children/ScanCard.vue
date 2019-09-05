@@ -1,13 +1,13 @@
 <template>
-    <van-collapse-item :title="'扫描编号: ' + scan.log_id" :name="'订单' + scan.log_id">
+    <van-collapse-item :title="'扫描编号: ' + scan.id">
         <section class="scan-info">
             <div>
                 <span>开始时间: {{scan.start_scan_time}}</span>
-                <span>结束时间: {{scan.time_consuming}}</span>
+                <span>结束时间: {{scan.end_scan_time}}</span>
             </div>
             <div>
                 <span>扫描状态: {{scan.scan_result}}</span>
-                <span>扫描错误信息: {{scan.scan_errmsg}}</span>
+                <span>扫描错误信息: {{scan.card_errmsg}}</span>
             </div>
         </section>
         <van-divider />

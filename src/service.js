@@ -10,7 +10,7 @@ export const userLogin = (username, password) => request('/user/login', {
 /**
  * 获取银行卡列表
  */
-export const getCards = (query) => request('/cards', query);
+export const getCards = (query) => request('/card', query);
 /**
  * 增加银行卡
  */

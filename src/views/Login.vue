@@ -74,6 +74,7 @@ export default {
           this.RECORD_USERINFO({
             username: this.username,
             password: this.password,
+            id: result.data.id,
           });
           this.$router.push('/user');
         } else {

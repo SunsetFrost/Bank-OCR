@@ -18,6 +18,7 @@
 
 <script>
 import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
 import { Collapse, Panel, DropdownItem, DropdownMenu, NavBar } from 'vant';
 import ScanCard from './children/ScanCard.vue';
 import {
@@ -51,7 +52,14 @@ export default {
 
     mounted() {
         this.getScanList();
-    },        
+    },  
+
+    computed: {
+        ...mapState([
+            'login', 
+            'userInfo',
+        ]),
+    },          
 
     components: {
         ScanCard,
@@ -63,7 +71,9 @@ export default {
         },
 
         async getScanList() {
-            const result = await getScans();
+            const result = await getScans({
+                user_id: this.userInfo.id,
+            });
             this.scanList = result.data;
         }
     }    

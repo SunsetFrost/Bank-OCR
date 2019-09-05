@@ -2,8 +2,8 @@
     <div class="card-container">
         <section class="card">
           <div class="card-main">
-            <p>{{card? card.card_type: ''}}</p>
-            <h4>{{card? card.card_number: ''}}</h4>
+            <p>{{card? card.type: ''}}</p>
+            <h4>{{card? card.number: ''}}</h4>
           </div>
           <div class="btn-group">
             <van-button icon="info">详情</van-button>

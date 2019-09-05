@@ -20,6 +20,7 @@
 
 <script>
 import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
 import { Cell, DropdownMenu, DropdownItem, NavBar } from 'vant';
 import BankCard from '../components/BankCard.vue';
 import {
@@ -51,7 +52,16 @@ export default {
     },
 
     mounted() {
-        this.getCardList();
+        this.getCardList({
+            user_id: this.userInfo.id
+        });
+    },  
+    
+    computed: {
+        ...mapState([
+            'login', 
+            'userInfo',
+        ]),
     },    
 
     components: {
@@ -64,7 +74,9 @@ export default {
         },
 
         async getCardList() {
-            const result = await getCards();
+            const result = await getCards({
+                user_id: this.userInfo.id,
+            });
             this.cardList = result.data;
         }
     }
