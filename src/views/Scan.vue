@@ -2,10 +2,10 @@
     <div class="container">
         <video id="video" class="video" autoplay playsinline></video>
         <canvas id="canvas" class="canvas" width="200" height="200"></canvas>
-        <van-overlay show="true"/>
+        <van-overlay :show="isOverlayShow"/>
         <van-button class="btn" @click="onCapture()">拍摄银行卡</van-button>
         <van-dialog
-          v-model="dialogShow"
+          v-model="isDialogShow"
           show-cancel-button
           confirmButtonText="加入卡包"
           class="modal"
@@ -24,10 +24,11 @@
 
 <script>
 import Vue from 'vue';
-import { Button, Dialog, Overlay, Loading } from 'vant';
+import { Button, Dialog, Overlay, Loading, Notify } from 'vant';
 import { setInterval, setTimeout } from 'timers';
 import BankCard from '../components/BankCard.vue';
-import { addScan } from '../service';
+import { addScan, addCard } from '../service';
+import { mapState } from 'vuex';
 
 Vue.use(Button);
 Vue.use(Dialog);
@@ -51,11 +52,19 @@ export default {
       ctx: null,
       currentStream: null,
       video: null,
-      dialogShow: false,
+      isOverlayShow: true,
+      isDialogShow: false,
       isScanFinish: false,
       card: null,
       img: '',
     };
+  },
+
+  computed: {
+    ...mapState([
+      'login',
+      'userInfo',
+    ])
   },
 
   mounted() {
@@ -82,51 +91,62 @@ export default {
           throw new Error('该设备没有摄像头');
         }
       } catch (error) {
-        console.error(error);
+        Notify(error);
       }
     },
     // 拍摄
     onCapture() {
+      if(!this.login) {
+        Notify('匿名用户暂无权限');
+        return;
+      }
       // 获取拍摄银行卡的base64内容
       this.ctx.drawImage(video, 0, 0, 200, 200);         
       const canvas = document.getElementById('canvas');
       this.img = canvas.toDataURL('image/png');
 
       // 弹出Modal
-      this.dialogShow = true;
+      this.isDialogShow = true;
 
-      // 开始轮询请求分析状态
-      this.rollingScanResult();
+      // 开始请求分析状态
+      this.getScanResult();
     },
 
-    onConfirm() {
+    async onConfirm() {
       if(this.isScanFinish) {
-        console.log('触发');
+        // 新增银行卡记录
+        const result = await addCard({
+          number: 54232462345532526664,
+          user_id: this.userInfo.username,
+          type: '储蓄卡',
+          bank: '招商银行',
+        })
+
+        this.isScanFinish = false;
       } else {
-        console.log('尚未获取到银行卡结果');
+        Notify('尚未获取到银行卡结果');
       }
     },
 
-    // // 轮询扫描结果并更新状态
-    async rollingScanResult() {
-      // setInterval(this.getScanResult, 3000);
+    // 获取扫描结果并更新状态
+    async getScanResult() {
       const result = await addScan({
+        user_id: this.userInfo.username,
         img: this.img,
       })
-      console.log(result);
 
-      const card = {
-        card_id: 234546236,
-        card_number: 54232462345532526664,
-        card_type: '储蓄卡',
-      }
-      this.isScanFinish = true;
-    },
+    // 模拟请求
+    const sleep = m => new Promise(r => setTimeout(r, m));
+    await sleep(2000);
 
-    // 查询扫描结果
-    async getScanResult() {
-      this.isScanFinish = true;
+    this.card = {
+      card_id: 234546236,
+      card_number: 54232462345532526664,
+      card_type: '储蓄卡',
     }
+
+    this.isScanFinish = true;
+    },
   },
 };
 </script>
@@ -158,7 +178,7 @@ export default {
   .modal {
     div {
       height: 200px;
-      padding-top: 72px;
+      padding-top: 12px;
     }
   }
 }
