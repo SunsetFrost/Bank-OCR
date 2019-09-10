@@ -74,11 +74,11 @@ export default {
           this.RECORD_USERINFO({
             username: this.username,
             password: this.password,
-            id: result.data.id,
+            id: result.user.userId,
           });
           this.$router.push('/user');
         } else {
-          throw Error(result.msg);
+          throw Error(result.error);
         }
       } catch (error) {
         Notify('用户名或密码不正确');

@@ -48,6 +48,7 @@ import {
     Skeleton,
     Toast,
     } from 'vant';
+import { userSignout } from '../service';
 
 Vue.use(Cell).use(CellGroup);
 Vue.use(Icon);
@@ -78,12 +79,14 @@ export default {
             'OUT_LOGIN',
         ]),
 
-        onLogout() {
+        async onLogout() {
             Dialog.confirm({
                 title: '注销',
                 message: '确定要退出当前账户吗？'
-            }).then(() => {
+            }).then(async () => {
                 // on confirm
+                const reuslt = await userSignout();
+                console.log(reuslt);
                 this.OUT_LOGIN();
             }).catch(() => {
                 // on cancel

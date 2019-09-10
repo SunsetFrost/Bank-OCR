@@ -1,5 +1,6 @@
 let baseUrl = '';
-const DEV_URL = 'http://100.118.116.194:9273';
+const DEV_URL = 'http://localhost:9273';
+// const DEV_URL = 'http://100.118.116.196:8080';
 const PRO_URL = 'http://10.206.192.81:9273';
 
 if (process.env.NODE_ENV == 'development') {
