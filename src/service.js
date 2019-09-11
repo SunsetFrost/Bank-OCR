@@ -19,6 +19,10 @@ export const getCards = (query) => request('/api/card', query);
  * 增加银行卡
  */
 export const addCard = (data) => request('/api/card', data, 'POST');
+/** 
+ * 更新银行卡
+*/
+export const updateCard = (data) => request('/api/card/:id', data, 'POST');
 /**
  * 获取扫描列表
  */

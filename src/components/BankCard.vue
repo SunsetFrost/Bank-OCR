@@ -2,7 +2,7 @@
     <div class="card-container">
         <section class="card">
           <div class="card-main">
-            <p>{{card? card.type: ''}}</p>
+            <p>{{card? card.bank: ''}}</p>
             <h4>{{card? card.number: ''}}</h4>
           </div>
           <div class="btn-group">

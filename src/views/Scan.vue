@@ -15,7 +15,6 @@
       <div v-if="isScanFinish">
         <bank-card :card="this.card" />
       </div>
-      <!-- <div v-else class="" -->
       <van-loading v-else size="36px" vertical>分析处理中...</van-loading>
     </van-dialog>
   </div>
@@ -27,8 +26,10 @@ import { mapState, mapMutations } from "vuex";
 import { Button, Dialog, Overlay, Loading, Notify, Uploader } from "vant";
 import { setInterval, setTimeout } from "timers";
 import BankCard from "../components/BankCard.vue";
-import { addScan, addCard } from "../service";
+import { addScan, addCard, updateCard } from "../service";
 import { Base64 } from "js-base64";
+import base64url from "base64url";
+import base64 from "base64-url";
 
 Vue.use(Button);
 Vue.use(Dialog);
@@ -112,12 +113,9 @@ export default {
 
     async onConfirm() {
       if (this.isScanFinish) {
-        // 新增银行卡记录
-        const result = await addCard({
-          number: 54232462345532526664,
-          user_id: this.userInfo.id,
-          type: "储蓄卡",
-          bank: "招商银行"
+        const result = await updateCard({
+          id: this.card.id,
+          user_id: this.userInfo.id
         });
 
         this.isScanFinish = false;
@@ -126,37 +124,29 @@ export default {
       }
     },
 
-    // 获取扫描结果并更新状态
-    async getScanResult() {
-      const result = await addScan({
-        img: this.img
-      });
-      console.log(result);
-      return;
-
-      // 模拟请求
-      const sleep = m => new Promise(r => setTimeout(r, m));
-      await sleep(2000);
-
-      this.card = {
-        card_id: 234546236,
-        card_number: 54232462345532526664,
-        card_type: "储蓄卡"
-      };
-
-      this.isScanFinish = true;
-    },
-
     onUpload(file) {
       const imgOrigin = file.content;
-      this.img = Base64.encodeURI(imgOrigin.split(",")[1]);
-
+      this.img = base64.escape(imgOrigin.split(",")[1]);
       // 弹出Modal
       this.isDialogShow = true;
 
       // 开始请求分析状态
       this.getScanResult();
     },
+
+    // 获取扫描结果并更新状态
+    async getScanResult() {
+      const result = await addScan({
+        userId: this.userInfo.id,
+        img: this.img
+      });
+
+      this.card = {
+        ...result.data
+      };
+
+      this.isScanFinish = true;
+    }
   }
 };
 </script>
