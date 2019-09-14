@@ -59,7 +59,7 @@ export default async (url = "", data = {}, type = "GET", method = "ajax") => {
 
       requestObj.open(type, url, true);
       requestObj.setRequestHeader("Content-type", "application/json");
-      requestObj.withCredentials = true;
+      // requestObj.withCredentials = true;
       
       requestObj.send(sendData);
 

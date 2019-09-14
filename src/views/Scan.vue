@@ -4,13 +4,13 @@
     <canvas id="canvas" class="canvas" width="200" height="200"></canvas>
     <van-overlay :show="isOverlayShow" />
     <van-button class="btn" @click="onCapture()">拍摄银行卡</van-button>
-    <van-uploader style="z-index: 999;" :after-read="onUpload" />
     <van-dialog
       v-model="isDialogShow"
       show-cancel-button
       confirmButtonText="加入卡包"
       class="modal"
       @confirm="onConfirm()"
+      @cancel="onCancel()"
     >
       <div v-if="isScanFinish">
         <bank-card :card="this.card" />
@@ -27,9 +27,7 @@ import { Button, Dialog, Overlay, Loading, Notify, Uploader } from "vant";
 import { setInterval, setTimeout } from "timers";
 import BankCard from "../components/BankCard.vue";
 import { addScan, addCard, updateCard } from "../service";
-import { Base64 } from "js-base64";
-import base64url from "base64url";
-import base64 from "base64-url";
+import { encode } from "url-safe-base64";
 
 Vue.use(Button);
 Vue.use(Dialog);
@@ -52,9 +50,11 @@ export default {
       ctx: null,
       currentStream: null,
       video: null,
+
       isOverlayShow: true,
       isDialogShow: false,
       isScanFinish: false,
+
       card: null,
       img: ""
     };
@@ -93,40 +93,16 @@ export default {
     },
     // 拍摄
     onCapture() {
-      // if (!this.login) {
-      //   Notify("匿名用户暂无权限");
-      //   return;
-      // }
+      if (!this.login) {
+        Notify("匿名用户暂无权限");
+        return;
+      }
       // 获取拍摄银行卡的base64内容
       this.ctx.drawImage(video, 0, 0, 200, 200);
       const canvas = document.getElementById("canvas");
       const imgOrigin = canvas.toDataURL("image/png");
-      // this.img = encode(imgOrigin.split(",")[1]);
-      this.img = Base64.encodeURI(imgOrigin.split(",")[1]);
+      this.img = encode(imgOrigin.split(",")[1]);
 
-      // 弹出Modal
-      this.isDialogShow = true;
-
-      // 开始请求分析状态
-      this.getScanResult();
-    },
-
-    async onConfirm() {
-      if (this.isScanFinish) {
-        const result = await updateCard({
-          id: this.card.id,
-          user_id: this.userInfo.id
-        });
-
-        this.isScanFinish = false;
-      } else {
-        Notify("尚未获取到银行卡结果");
-      }
-    },
-
-    onUpload(file) {
-      const imgOrigin = file.content;
-      this.img = base64.escape(imgOrigin.split(",")[1]);
       // 弹出Modal
       this.isDialogShow = true;
 
@@ -140,12 +116,35 @@ export default {
         userId: this.userInfo.id,
         img: this.img
       });
+      if (result.status) {
+        this.card = {
+          ...result.data
+        };
+        this.isScanFinish = true;
+      } else {
+        this.isDialogShow = false;
+        Notify(`识别该银行卡失败`);
+      }
+    },
 
-      this.card = {
-        ...result.data
-      };
+    async onConfirm() {
+      if (this.isScanFinish) {
+        const result = await updateCard({
+          id: this.card.id,
+          user_id: this.userInfo.id
+        });
+      } else {
+        Notify("尚未获取到银行卡结果");
+      }
+      this.isScanFinish = false;
+      this.card = null;
+      this.img = "";
+    },
 
-      this.isScanFinish = true;
+    onCancel() {
+      this.isScanFinish = false;
+      this.card = null;
+      this.img = "";
     }
   }
 };

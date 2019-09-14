@@ -2,12 +2,12 @@
     <van-collapse-item :title="'扫描编号: ' + scan.id">
         <section class="scan-info">
             <div>
-                <span>开始时间: {{scan.start_scan_time}}</span>
-                <span>结束时间: {{scan.end_scan_time}}</span>
+                <span>开始时间: {{formatScanDate.start}}</span>
+                <span>结束时间: {{formatScanDate.end}}</span>
             </div>
             <div>
-                <span>扫描状态: {{scan.scan_result}}</span>
-                <span>扫描错误信息: {{scan.card_errmsg}}</span>
+                <span>扫描状态: {{scan.scan_result === 1? "成功":"失败"}}</span>
+                <span>扫描信息: {{scan.card_errmsg? scan.card_errmsg:"暂无" }}</span>
             </div>
         </section>
         <van-divider />
@@ -21,6 +21,7 @@
 <script>
 import Vue from 'vue';
 import { Button, Collapse, CollapseItem, Divider } from 'vant';
+import moment from 'moment';
 
 Vue.use(Button);
 Vue.use(Collapse).use(CollapseItem);
@@ -28,6 +29,15 @@ Vue.use(Divider);
 
 export default {
     props: ['scan'],
+
+    computed: {
+        formatScanDate() {
+            return {
+                start: moment(this.scan.start_scan_time).format("YYYY-MM-DD HH:mm:ss"),
+                end: moment(this.scan.end_scan_time).format("YYYY-MM-DD HH:mm:ss")
+            }
+        }
+    }
 }
 </script>
 

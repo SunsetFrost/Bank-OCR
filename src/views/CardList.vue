@@ -74,4 +74,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.list {
+  margin-bottom: 40px;
+}
 </style>
