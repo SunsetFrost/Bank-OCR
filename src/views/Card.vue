@@ -1,11 +1,12 @@
 <template>
   <div>
     <section class="search">
-      <van-search v-model="searchValue" placeholder="搜索银行卡OCR记录" shape="round" @search="onSearch">
+      <!-- <van-search v-model="searchValue"  shape="round" @search="onSearch">
         <div slot="action" @click="onSearch">
           <van-button icon="scan" type="info" size="small" style="margin: 0 12px;">拍照</van-button>
         </div>
-      </van-search>
+      </van-search>-->
+      <van-search placeholder="请输入搜索关键词" v-model="value" />
     </section>
     <section class="btn-group">
       <van-button color="#03a9f4" icon="scan" round class="btn-primary" @click="onScan()">拍照</van-button>
@@ -109,7 +110,7 @@ export default {
       const result = await getCards({
         user_id: this.userInfo.id
       });
-      this.cardList = result.status? result.data: [];
+      this.cardList = result.status ? result.data : [];
     },
 
     onScan() {

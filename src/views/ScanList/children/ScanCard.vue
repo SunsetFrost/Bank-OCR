@@ -12,7 +12,7 @@
         </section>
         <van-divider />
         <section class="scan-btn">
-            <van-button type="info" size="small">详情</van-button>
+            <van-button type="info" size="small" @click="onDetail()">详情</van-button>
             <van-button type="danger" size="small">删除</van-button>
         </section>
     </van-collapse-item>
@@ -36,6 +36,12 @@ export default {
                 start: moment(this.scan.start_scan_time).format("YYYY-MM-DD HH:mm:ss"),
                 end: moment(this.scan.end_scan_time).format("YYYY-MM-DD HH:mm:ss")
             }
+        }
+    },
+
+    methods: {
+        onDetail() {
+            this.$router.push(`/scan/${this.scan.id}`);
         }
     }
 }

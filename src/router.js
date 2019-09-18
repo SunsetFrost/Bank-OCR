@@ -10,6 +10,8 @@ import Scan from "./views/Scan.vue";
 import Card from "./views/Card.vue";
 import CardList from "./views/CardList.vue";
 import ScanList from "./views/ScanList/ScanList.vue";
+import BankDetail from "./views/BankDetail.vue";
+import ScanDetail from "./views/ScanDetail.vue";
 
 Vue.use(Router);
 
@@ -56,6 +58,14 @@ export default new Router({
             {
               path: "/scanList",
               component: ScanList
+            },
+            {
+              path: "/bankcard/:id",
+              component: BankDetail
+            },
+            {
+              path: "/scan/:id",
+              component: ScanDetail
             }
           ]
         },

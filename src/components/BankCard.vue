@@ -2,12 +2,12 @@
   <div class="card-container">
     <section class="card" v-bind:style="styleObj">
       <div class="card-main">
-        <h5>{{card? card.bank: ''}}</h5>
-        <p>{{card? card.type: ''}}</p>
-        <h4>{{card? card.number: ''}}</h4>
+        <h5>{{card && card.bank !== 'null'? card.bank: '未知银行'}}</h5>
+        <p>{{card && card.type !== 'null'? card.type: '未知种类'}}</p>
+        <h4>{{card? card.number: '未知号码'}}</h4>
       </div>
       <div class="btn-group">
-        <van-button icon="info-o">详情</van-button>
+        <van-button icon="info-o" @click="onDetail()">详情</van-button>
         <span class="divider">|</span>
         <van-button icon="plus">编辑</van-button>
         <span class="divider">|</span>
@@ -40,11 +40,15 @@ export default {
         'linear-gradient(to right, #4e342e, #bcaaa4)'
       ]
       return {
-        background: color[randomIndex]
+        background: color[0]
       }
     }
+  },
+  methods: {
+    onDetail() {
+      this.$router.push(`/bankcard/${this.card.id}`);
+    }
   }
-  
 };
 </script>
 
