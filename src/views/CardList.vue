@@ -64,9 +64,7 @@ export default {
     },
 
     async getCardList() {
-      const result = await getCards({
-        user_id: this.userInfo.id
-      });
+      const result = await getCards({});
       this.cardList = result.data;
     }
   }

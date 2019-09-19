@@ -50,11 +50,10 @@ export default {
     async onLogin() {
       try {
         const result = await userLogin(this.username, this.pwd);
+        
         if (result.status) {
           this.RECORD_USERINFO({
             username: this.username,
-            password: this.password,
-            id: result.data.id
           });
           this.$router.push("/user");
         } else {

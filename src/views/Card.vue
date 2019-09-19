@@ -107,9 +107,7 @@ export default {
     },
 
     async getCardList() {
-      const result = await getCards({
-        user_id: this.userInfo.id
-      });
+      const result = await getCards({});
       this.cardList = result.status ? result.data : [];
     },
 
@@ -131,7 +129,6 @@ export default {
     // 获取扫描结果并更新状态
     async getScanResult() {
       const result = await addScan({
-        userId: this.userInfo.id,
         img: this.img
       });
       if (result.status) {
@@ -148,8 +145,7 @@ export default {
     async onConfirm() {
       if (this.isScanFinish) {
         const result = await updateCard({
-          id: this.card.id,
-          user_id: this.userInfo.id
+          id: this.card.id
         });
         this.getCardList();
       } else {

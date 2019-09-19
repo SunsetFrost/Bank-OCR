@@ -113,7 +113,6 @@ export default {
     // 获取扫描结果并更新状态
     async getScanResult() {
       const result = await addScan({
-        userId: this.userInfo.id,
         img: this.img
       });
       if (result.status) {
@@ -131,7 +130,6 @@ export default {
       if (this.isScanFinish) {
         const result = await updateCard({
           id: this.card.id,
-          user_id: this.userInfo.id
         });
       } else {
         Notify("尚未获取到银行卡结果");
