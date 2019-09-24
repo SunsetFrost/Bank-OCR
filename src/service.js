@@ -29,6 +29,14 @@ export const userRegister = (username, password) =>
  */
 export const userSignout = () => request("/api/user/signout");
 /**
+ * 获取登录态
+ */
+export const checkLogin = () => request("/api/user/checkLogin");
+/**
+ * 用户名是否存在
+ */
+export const isUserExist = data => request("/api/user/isExist", data, "POST");
+/**
  * 获取银行卡列表
  */
 export const getCards = query => request("/api/card", query);
@@ -48,3 +56,7 @@ export const getScans = query => request("/api/scan", query);
  * 增加扫描记录
  */
 export const addScan = data => request("/api/scan", data, "POST");
+/**
+ * 删除扫描记录
+ */
+export const deleteScan = data => request("/api/scan/delete", data, "POST");

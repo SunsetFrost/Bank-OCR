@@ -32,7 +32,7 @@
 import Vue from "vue";
 import { Button, Field, CellGroup, Notify } from "vant";
 import HomeFooter from "../components/Footer.vue";
-import { userRegister } from "../service";
+import { userRegister, isUserExist } from "../service";
 
 Vue.use(Button);
 Vue.use(Field);
@@ -63,6 +63,14 @@ export default {
         Notify("前后两次输入密码不一致");
         return;
       } else {
+        const isExist = await isUserExist({
+          username: this.username
+        });
+        if (!isExist.status) {
+          Notify("用户已存在");
+          throw new Error("用户已存在");
+        }
+
         const result = await userRegister(this.username, this.password);
         if (result.status) {
           Notify("用户注册成功");

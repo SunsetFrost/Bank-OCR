@@ -6,7 +6,7 @@
       <van-dropdown-item v-model="value2" :options="option2" />
     </van-dropdown-menu>
     <van-collapse v-model="activeNames" class="list">
-      <scan-card v-for="item in scanList" :key="item.log_id" :scan="item"></scan-card>
+      <scan-card v-for="item in scanList" :key="item.log_id" :scan="item" :getList="getScanList"></scan-card>
     </van-collapse>
   </div>
 </template>
@@ -63,9 +63,7 @@ export default {
     },
 
     async getScanList() {
-      const result = await getScans({
-        user_id: this.userInfo.id
-      });
+      const result = await getScans();
       this.scanList = result.data;
     }
   }

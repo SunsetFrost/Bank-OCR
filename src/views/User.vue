@@ -115,9 +115,11 @@ export default {
       })
         .then(async () => {
           // on confirm
-        //   const reuslt = await userSignout();
-        //   console.log(reuslt);
+          //   const reuslt = await userSignout();
+          //   console.log(reuslt);
+          await userSignout();
           this.OUT_LOGIN();
+          this.$router.push('/login');
         })
         .catch(() => {
           // on cancel

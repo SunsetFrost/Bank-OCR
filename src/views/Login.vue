@@ -50,17 +50,17 @@ export default {
     async onLogin() {
       try {
         const result = await userLogin(this.username, this.pwd);
-        
+
         if (result.status) {
           this.RECORD_USERINFO({
-            username: this.username,
+            username: this.username
           });
           this.$router.push("/user");
         } else {
-          throw Error(result.error);
+          throw new Error(result.msg);
         }
       } catch (error) {
-        Notify("用户名或密码不正确");
+        Notify(error.message);
       }
     },
 
