@@ -7,9 +7,9 @@
         <h4>{{card? card.number: '未知号码'}}</h4>
       </div>
       <div class="btn-group">
-        <van-button icon="info-o" @click="onDetail()">详情</van-button>
+        <van-button icon="info-o" @click="onDetail">详情</van-button>
         <span class="divider">|</span>
-        <van-button icon="plus">编辑</van-button>
+        <van-button icon="plus" @click="onEdit">编辑</van-button>
         <span class="divider">|</span>
         <van-button icon="scan" @click="onScanRecord">扫描记录</van-button>
       </div>
@@ -49,6 +49,9 @@ export default {
   methods: {
     onDetail() {
       this.$router.push(`/bankcard/${this.card.id}`);
+    },
+    onEdit() {
+      this.$router.push(`/bankcard/${this.card.id}/edit`);
     },
     async onScanRecord() {
       if (!!this.card) {
