@@ -6,7 +6,7 @@
           <van-button icon="scan" type="info" size="small" style="margin: 0 12px;">拍照</van-button>
         </div>
       </van-search>-->
-      <van-search placeholder="请输入搜索关键词" v-model="value" />
+      <van-search placeholder="请输入银行卡号搜索" v-model="searchValue" @search="onSearch" />
     </section>
     <section class="btn-group">
       <van-button color="#03a9f4" icon="scan" round class="btn-primary" @click="onScan()">拍照</van-button>
@@ -58,7 +58,13 @@ import {
   Notify
 } from "vant";
 import BankCard from "../components/BankCard.vue";
-import { getCards, addScan, addCard, updateCard } from "../service";
+import {
+  getCards,
+  getCardsByNumber,
+  addScan,
+  addCard,
+  updateCard
+} from "../service";
 import { encode } from "url-safe-base64";
 
 Vue.use(Button);
@@ -102,8 +108,16 @@ export default {
   },
 
   methods: {
-    onSearch() {
-      return null;
+    async onSearch() {
+      if (this.searchValue !== "") {
+        const result = await getCardsByNumber({
+          number: this.searchValue
+        });
+        this.cardList = result.status ? result.data : [];
+      } else {
+        const result = await getCards({});
+        this.cardList = result.status ? result.data : [];
+      }
     },
 
     async getCardList() {

@@ -41,6 +41,10 @@ export const isUserExist = data => request("/api/user/isExist", data, "POST");
  */
 export const getCards = query => request("/api/card", query);
 /**
+ * 通过卡号获取银行卡列表
+ */
+export const getCardsByNumber = query => request("/api/card/queryByNumber", query);
+/**
  * 增加银行卡
  */
 export const addCard = data => request("/api/card", data, "POST");
