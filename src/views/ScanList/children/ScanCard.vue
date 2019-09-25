@@ -19,26 +19,28 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { Button, Collapse, CollapseItem, Divider, Dialog, Notify } from "vant";
-import moment from "moment";
-import { deleteScan } from "../../../service";
-import { async } from "q";
+import Vue from 'vue';
+import {
+  Button, Collapse, CollapseItem, Divider, Dialog, Notify,
+} from 'vant';
+import moment from 'moment';
+import { async } from 'q';
+import { deleteScan } from '../../../service';
 
 Vue.use(Button);
 Vue.use(Collapse).use(CollapseItem);
 Vue.use(Divider);
 
 export default {
-  props: ["scan", "getList"],
+  props: ['scan', 'getList'],
 
   computed: {
     formatScanDate() {
       return {
-        start: moment(this.scan.start_scan_time).format("YYYY-MM-DD HH:mm:ss"),
-        end: moment(this.scan.end_scan_time).format("YYYY-MM-DD HH:mm:ss")
+        start: moment(this.scan.start_scan_time).format('YYYY-MM-DD HH:mm:ss'),
+        end: moment(this.scan.end_scan_time).format('YYYY-MM-DD HH:mm:ss'),
       };
-    }
+    },
   },
 
   methods: {
@@ -47,24 +49,24 @@ export default {
     },
     async onDelete() {
       Dialog.confirm({
-        title: "删除扫描记录",
-        message: "确定要删除当前记录吗?"
+        title: '删除扫描记录',
+        message: '确定要删除当前记录吗?',
       })
         .then(async () => {
           try {
             const { status, data } = await deleteScan({ id: this.scan.id });
             if (status) {
-                this.getList();
+              this.getList();
             } else {
-              throw Error("删除失败");
+              throw Error('删除失败');
             }
           } catch (error) {
-            Notify("删除失败");
+            Notify('删除失败');
           }
         })
         .catch(() => {});
-    }
-  }
+    },
+  },
 };
 </script>
 

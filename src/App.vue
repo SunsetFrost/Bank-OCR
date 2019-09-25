@@ -7,8 +7,8 @@
 <script>
 import Vue from 'vue';
 import { Notify } from 'vant';
-import { mapState, mapMutations } from "vuex";
-import { checkLogin } from "./service";
+import { mapState, mapMutations } from 'vuex';
+import { checkLogin } from './service';
 
 Vue.use(Notify);
 
@@ -18,20 +18,20 @@ export default {
   },
 
   methods: {
-    ...mapMutations(["RECORD_USERINFO"]),
+    ...mapMutations(['RECORD_USERINFO']),
 
     async init() {
       const result = await checkLogin();
       if (result.status) {
         this.RECORD_USERINFO({
-          username: result.data.username
+          username: result.data.username,
         });
       } else {
         Notify('用户尚未登录');
         this.$router.push('/login');
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

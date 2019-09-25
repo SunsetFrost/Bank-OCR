@@ -14,11 +14,13 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { mapState, mapMutations } from "vuex";
-import { Cell, DropdownMenu, DropdownItem, NavBar } from "vant";
-import BankCard from "../components/BankCard.vue";
-import { getCards } from "../service";
+import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
+import {
+  Cell, DropdownMenu, DropdownItem, NavBar,
+} from 'vant';
+import BankCard from '../components/BankCard.vue';
+import { getCards } from '../service';
 
 Vue.use(Cell);
 Vue.use(DropdownMenu).use(DropdownItem);
@@ -28,19 +30,19 @@ export default {
   data() {
     return {
       value1: 0,
-      value2: "a",
+      value2: 'a',
       option1: [
-        { text: "全部卡片", value: 0 },
-        { text: "工商银行", value: 1 },
-        { text: "招商银行", value: 2 },
-        { text: "浦发银行", value: 3 }
+        { text: '全部卡片', value: 0 },
+        { text: '工商银行', value: 1 },
+        { text: '招商银行', value: 2 },
+        { text: '浦发银行', value: 3 },
       ],
       option2: [
-        { text: "默认排序", value: "a" },
-        { text: "按加入时间排序", value: "b" },
-        { text: "按卡号排序", value: "c" }
+        { text: '默认排序', value: 'a' },
+        { text: '按加入时间排序', value: 'b' },
+        { text: '按卡号排序', value: 'c' },
       ],
-      cardList: []
+      cardList: [],
     };
   },
 
@@ -51,11 +53,11 @@ export default {
   },
 
   computed: {
-    ...mapState(["login", "userInfo"])
+    ...mapState(['login', 'userInfo']),
   },
 
   components: {
-    BankCard
+    BankCard,
   },
 
   methods: {
@@ -66,8 +68,8 @@ export default {
     async getCardList() {
       const result = await getCards({});
       this.cardList = result.data;
-    }
-  }
+    },
+  },
 };
 </script>
 

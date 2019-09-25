@@ -19,16 +19,16 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { mapState, mapMutations } from "vuex";
-import { Cell, CellGroup, NavBar } from "vant";
-import { getScans } from "../service";
-import moment from "moment";
+import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
+import { Cell, CellGroup, NavBar } from 'vant';
+import moment from 'moment';
+import { getScans } from '../service';
 
 export default {
   data() {
     return {
-      scan: null
+      scan: null,
     };
   },
 
@@ -39,10 +39,10 @@ export default {
   computed: {
     formatScanDate() {
       return {
-        start: moment(this.scan.start_scan_time).format("YYYY-MM-DD HH:mm:ss"),
-        end: moment(this.scan.end_scan_time).format("YYYY-MM-DD HH:mm:ss")
+        start: moment(this.scan.start_scan_time).format('YYYY-MM-DD HH:mm:ss'),
+        end: moment(this.scan.end_scan_time).format('YYYY-MM-DD HH:mm:ss'),
       };
-    }
+    },
   },
 
   methods: {
@@ -52,10 +52,10 @@ export default {
 
     async getScan(id) {
       const result = await getScans({
-        id
+        id,
       });
       this.scan = result.data[0];
-    }
-  }
+    },
+  },
 };
 </script>

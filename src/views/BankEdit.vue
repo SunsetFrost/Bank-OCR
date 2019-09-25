@@ -13,10 +13,12 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { Button, CellGroup, Field, Notify } from "vant";
-import { getCards, updateCard } from "../service";
-import moment from "moment";
+import Vue from 'vue';
+import {
+  Button, CellGroup, Field, Notify,
+} from 'vant';
+import moment from 'moment';
+import { getCards, updateCard } from '../service';
 
 Vue.use(Button);
 Vue.use(CellGroup);
@@ -25,7 +27,7 @@ Vue.use(Field);
 export default {
   data() {
     return {
-      card: null
+      card: null,
     };
   },
 
@@ -40,37 +42,37 @@ export default {
 
     async getCard(id) {
       const result = await getCards({
-        id
+        id,
       });
       if (result.status) {
         this.card = result.data[0];
       } else {
-        Notify("无法获取该银行卡信息");
+        Notify('无法获取该银行卡信息');
         this.$router.go(-1);
       }
     },
 
     async onSave() {
       if (
-        this.card.number.trim() !== "" ||
-        this.card.type.trim() !== "" ||
-        this.card.bank.trim() !== ""
+        this.card.number.trim() !== ''
+        || this.card.type.trim() !== ''
+        || this.card.bank.trim() !== ''
       ) {
         const result = await updateCard({
           id: this.card.id,
           number: this.card.number,
           bank: this.card.bank,
-          type: this.card.type
+          type: this.card.type,
         });
         if (result.status) {
-          Notify("保存成功");
+          Notify('保存成功');
         } else {
-          Notify("保存失败");
+          Notify('保存失败');
         }
       } else {
-        Notify("字段不能为空");
+        Notify('字段不能为空');
       }
-    }
-  }
+    },
+  },
 };
 </script>

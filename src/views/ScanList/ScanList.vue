@@ -12,11 +12,13 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { mapState, mapMutations } from "vuex";
-import { Collapse, Panel, DropdownItem, DropdownMenu, NavBar } from "vant";
-import ScanCard from "./children/ScanCard.vue";
-import { getScans } from "../../service";
+import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
+import {
+  Collapse, Panel, DropdownItem, DropdownMenu, NavBar,
+} from 'vant';
+import ScanCard from './children/ScanCard.vue';
+import { getScans } from '../../service';
 
 Vue.use(Collapse);
 Vue.use(Panel);
@@ -28,18 +30,18 @@ export default {
     return {
       scanList: [],
       value1: 0,
-      value2: "a",
+      value2: 'a',
       option1: [
-        { text: "全部扫描", value: 0 },
-        { text: "扫描成功", value: 1 },
-        { text: "扫描失败", value: 2 }
+        { text: '全部扫描', value: 0 },
+        { text: '扫描成功', value: 1 },
+        { text: '扫描失败', value: 2 },
       ],
       option2: [
-        { text: "默认排序", value: "a" },
-        { text: "按扫描时间排序", value: "b" },
-        { text: "按ID排序", value: "c" }
+        { text: '默认排序', value: 'a' },
+        { text: '按扫描时间排序', value: 'b' },
+        { text: '按ID排序', value: 'c' },
       ],
-      activeNames: []
+      activeNames: [],
     };
   },
 
@@ -50,11 +52,11 @@ export default {
   },
 
   computed: {
-    ...mapState(["login", "userInfo"])
+    ...mapState(['login', 'userInfo']),
   },
 
   components: {
-    ScanCard
+    ScanCard,
   },
 
   methods: {
@@ -65,8 +67,8 @@ export default {
     async getScanList() {
       const result = await getScans();
       this.scanList = result.data;
-    }
-  }
+    },
+  },
 };
 </script>
 

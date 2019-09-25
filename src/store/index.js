@@ -5,11 +5,11 @@ import mutations from './mutations';
 Vue.use(Vuex);
 
 const state = {
-    login: false,
-    userInfo: null,
-}
+  login: false,
+  userInfo: null,
+};
 
 export default new Vuex.Store({
-    state,
-    mutations,
-})
+  state,
+  mutations,
+});

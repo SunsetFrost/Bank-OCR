@@ -83,10 +83,12 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { mapState, mapMutatimapMutations, mapMutations } from "vuex";
-import { Cell, CellGroup, Dialog, Icon, Image, Skeleton, Toast } from "vant";
-import { userSignout } from "../service";
+import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
+import {
+  Cell, CellGroup, Dialog, Icon, Image, Skeleton, Toast,
+} from 'vant';
+import { userSignout } from '../service';
 
 Vue.use(Cell).use(CellGroup);
 Vue.use(Icon);
@@ -102,16 +104,16 @@ export default {
   mounted() {},
 
   computed: {
-    ...mapState(["login", "userInfo"])
+    ...mapState(['login', 'userInfo']),
   },
 
   methods: {
-    ...mapMutations(["OUT_LOGIN"]),
+    ...mapMutations(['OUT_LOGIN']),
 
     async onLogout() {
       Dialog.confirm({
-        title: "注销",
-        message: "确定要退出当前账户吗？"
+        title: '注销',
+        message: '确定要退出当前账户吗？',
       })
         .then(async () => {
           // on confirm
@@ -127,9 +129,9 @@ export default {
     },
 
     onConfig() {
-      Toast("功能暂未开放");
-    }
-  }
+      Toast('功能暂未开放');
+    },
+  },
 };
 </script>
 

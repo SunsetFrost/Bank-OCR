@@ -29,10 +29,12 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { Button, Field, CellGroup, Notify } from "vant";
-import HomeFooter from "../components/Footer.vue";
-import { userRegister, isUserExist } from "../service";
+import Vue from 'vue';
+import {
+  Button, Field, CellGroup, Notify,
+} from 'vant';
+import HomeFooter from '../components/Footer.vue';
+import { userRegister, isUserExist } from '../service';
 
 Vue.use(Button);
 Vue.use(Field);
@@ -42,45 +44,43 @@ Vue.use(Notify);
 export default {
   data() {
     return {
-      username: "",
-      password: "",
-      newPassword: "",
-      email: "",
-      mobile: ""
+      username: '',
+      password: '',
+      newPassword: '',
+      email: '',
+      mobile: '',
     };
   },
 
   components: {
-    HomeFooter
+    HomeFooter,
   },
 
   methods: {
     async onRegister() {
-      if (this.username === "" || this.password === "" || this.newPassword === "") {
-        Notify("请输入必填项信息");
-        return;
+      if (this.username === '' || this.password === '' || this.newPassword === '') {
+        Notify('请输入必填项信息');
       } else if (this.password !== this.newPassword) {
-        Notify("前后两次输入密码不一致");
-        return;
+        Notify('前后两次输入密码不一致');
       } else {
         const isExist = await isUserExist({
-          username: this.username
+          username: this.username,
         });
         if (!isExist.status) {
-          Notify("用户已存在");
-          throw new Error("用户已存在");
+          Notify('用户已存在');
+          throw new Error('用户已存在');
         }
 
         const result = await userRegister(this.username, this.password);
         if (result.status) {
-          Notify("用户注册成功");
-          this.$router.push("/login");
+          Notify('用户注册成功');
+          this.$router.push('/login');
         } else {
-          Notify("用户注册失败");
+          Notify('用户注册失败');
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

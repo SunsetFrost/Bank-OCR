@@ -15,11 +15,13 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { mapState, mapMutations } from "vuex";
-import { Button, Field, CellGroup, Notify } from "vant";
-import HomeFooter from "../components/Footer.vue";
-import { userLogin } from "../service";
+import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
+import {
+  Button, Field, CellGroup, Notify,
+} from 'vant';
+import HomeFooter from '../components/Footer.vue';
+import { userLogin } from '../service';
 
 Vue.use(Button);
 Vue.use(Field);
@@ -27,25 +29,25 @@ Vue.use(CellGroup);
 Vue.use(Notify);
 
 export default {
-  name: "login",
+  name: 'login',
 
   data() {
     return {
-      username: "",
-      pwd: ""
+      username: '',
+      pwd: '',
     };
   },
 
   computed: {
-    ...mapState(["login", "userInfo"])
+    ...mapState(['login', 'userInfo']),
   },
 
   components: {
-    HomeFooter
+    HomeFooter,
   },
 
   methods: {
-    ...mapMutations(["RECORD_USERINFO"]),
+    ...mapMutations(['RECORD_USERINFO']),
 
     async onLogin() {
       try {
@@ -53,9 +55,9 @@ export default {
 
         if (result.status) {
           this.RECORD_USERINFO({
-            username: this.username
+            username: this.username,
           });
-          this.$router.push("/user");
+          this.$router.push('/user');
         } else {
           throw new Error(result.msg);
         }
@@ -65,9 +67,9 @@ export default {
     },
 
     onRegister() {
-      this.$router.push("/register");
-    }
-  }
+      this.$router.push('/register');
+    },
+  },
 };
 </script>
 

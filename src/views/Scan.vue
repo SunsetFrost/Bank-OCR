@@ -21,13 +21,15 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { mapState, mapMutations } from "vuex";
-import { Button, Dialog, Overlay, Loading, Notify, Uploader } from "vant";
-import { setInterval, setTimeout } from "timers";
-import BankCard from "../components/BankCard.vue";
-import { addScan, addCard, updateCard } from "../service";
-import { encode } from "url-safe-base64";
+import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
+import {
+  Button, Dialog, Overlay, Loading, Notify, Uploader,
+} from 'vant';
+import { setInterval, setTimeout } from 'timers';
+import { encode } from 'url-safe-base64';
+import BankCard from '../components/BankCard.vue';
+import { addScan, addCard, updateCard } from '../service';
 
 Vue.use(Button);
 Vue.use(Dialog);
@@ -37,11 +39,11 @@ Vue.use(Uploader);
 
 const constraints = {
   video: {
-    facingMode: "environment",
+    facingMode: 'environment',
     width: 250,
-    height: 200
+    height: 200,
   },
-  audio: false
+  audio: false,
 };
 
 export default {
@@ -56,12 +58,12 @@ export default {
       isScanFinish: false,
 
       card: null,
-      img: ""
+      img: '',
     };
   },
 
   computed: {
-    ...mapState(["login", "userInfo"])
+    ...mapState(['login', 'userInfo']),
   },
 
   mounted() {
@@ -69,15 +71,15 @@ export default {
   },
 
   components: {
-    BankCard
+    BankCard,
   },
 
   methods: {
     // 调用摄像头
     async showVideo() {
-      const canvas = document.getElementById("canvas");
-      this.ctx = canvas.getContext("2d");
-      this.video = document.getElementById("video");
+      const canvas = document.getElementById('canvas');
+      this.ctx = canvas.getContext('2d');
+      this.video = document.getElementById('video');
 
       try {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -85,23 +87,23 @@ export default {
           this.currentStream = stream;
           this.video.srcObject = stream;
         } else {
-          throw new Error("该设备没有摄像头");
+          throw new Error('该设备没有摄像头');
         }
       } catch (error) {
-        Notify("无法获取摄像设备");
+        Notify('无法获取摄像设备');
       }
     },
     // 拍摄
     onCapture() {
       if (!this.login) {
-        Notify("匿名用户暂无权限");
+        Notify('匿名用户暂无权限');
         return;
       }
       // 获取拍摄银行卡的base64内容
       this.ctx.drawImage(video, 0, 0, 200, 200);
-      const canvas = document.getElementById("canvas");
-      const imgOrigin = canvas.toDataURL("image/png");
-      this.img = encode(imgOrigin.split(",")[1]);
+      const canvas = document.getElementById('canvas');
+      const imgOrigin = canvas.toDataURL('image/png');
+      this.img = encode(imgOrigin.split(',')[1]);
 
       // 弹出Modal
       this.isDialogShow = true;
@@ -113,16 +115,16 @@ export default {
     // 获取扫描结果并更新状态
     async getScanResult() {
       const result = await addScan({
-        img: this.img
+        img: this.img,
       });
       if (result.status) {
         this.card = {
-          ...result.data
+          ...result.data,
         };
         this.isScanFinish = true;
       } else {
         this.isDialogShow = false;
-        Notify(`识别该银行卡失败`);
+        Notify('识别该银行卡失败');
       }
     },
 
@@ -132,19 +134,19 @@ export default {
           id: this.card.id,
         });
       } else {
-        Notify("尚未获取到银行卡结果");
+        Notify('尚未获取到银行卡结果');
       }
       this.isScanFinish = false;
       this.card = null;
-      this.img = "";
+      this.img = '';
     },
 
     onCancel() {
       this.isScanFinish = false;
       this.card = null;
-      this.img = "";
-    }
-  }
+      this.img = '';
+    },
+  },
 };
 </script>
 

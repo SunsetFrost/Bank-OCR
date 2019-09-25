@@ -13,30 +13,30 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { mapState, mapMutations } from "vuex";
-import { Cell, CellGroup, NavBar } from "vant";
-import { getCards } from "../service";
+import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
+import { Cell, CellGroup, NavBar } from 'vant';
 import moment from 'moment';
+import { getCards } from '../service';
 
 Vue.use(Cell).use(CellGroup);
 Vue.use(NavBar);
 
 export default {
-    data() {
-        return {
-            card: null,
-        }
-    },
+  data() {
+    return {
+      card: null,
+    };
+  },
 
   mounted() {
-      this.getCard(this.$route.params.id);
+    this.getCard(this.$route.params.id);
   },
 
   computed: {
-      createTime() {
-          return moment(this.card.create_time).format("YYYY-MM-DD HH:mm:ss");
-      }
+    createTime() {
+      return moment(this.card.create_time).format('YYYY-MM-DD HH:mm:ss');
+    },
   },
 
   methods: {
@@ -45,11 +45,11 @@ export default {
     },
 
     async getCard(id) {
-        const result = await getCards({
-            id
-        })
-        this.card = result.data[0];
+      const result = await getCards({
+        id,
+      });
+      this.card = result.data[0];
     },
-  }
+  },
 };
 </script>

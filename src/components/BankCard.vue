@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { Button, Skeleton, Notify } from "vant";
-import { getScans } from "../service";
+import Vue from 'vue';
+import { Button, Skeleton, Notify } from 'vant';
+import { getScans } from '../service';
 
 Vue.use(Button);
 Vue.use(Skeleton);
@@ -31,20 +31,20 @@ export default {
   data() {
     return {};
   },
-  props: ["card"],
+  props: ['card'],
   computed: {
-    styleObj: function() {
+    styleObj() {
       const randomIndex = Math.floor(Math.random() * Math.floor(5));
       const color = [
-        "linear-gradient(to right, #597b8d, #93abb8)",
-        "linear-gradient(to right, #0277bd, #81d4fa)",
-        "linear-gradient(to right, #2e7d32, #a5d6a7)",
-        "linear-gradient(to right, #4e342e, #bcaaa4)"
+        'linear-gradient(to right, #597b8d, #93abb8)',
+        'linear-gradient(to right, #0277bd, #81d4fa)',
+        'linear-gradient(to right, #2e7d32, #a5d6a7)',
+        'linear-gradient(to right, #4e342e, #bcaaa4)',
       ];
       return {
-        background: color[0]
+        background: color[0],
       };
-    }
+    },
   },
   methods: {
     onDetail() {
@@ -54,24 +54,24 @@ export default {
       this.$router.push(`/bankcard/${this.card.id}/edit`);
     },
     async onScanRecord() {
-      if (!!this.card) {
+      if (this.card) {
         // 查询对应的scan id
         try {
           const { data } = await getScans({
-            card_id: this.card.id
+            card_id: this.card.id,
           });
           if (Array.isArray(data) && data.length > 0) {
             const logId = data[0].id;
             this.$router.push(`/scan/${logId}`);
           } else {
-            throw Error("未找到对应的扫描记录");
+            throw Error('未找到对应的扫描记录');
           }
         } catch (error) {
-          Notify("未找到对应的扫描记录");
+          Notify('未找到对应的扫描记录');
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

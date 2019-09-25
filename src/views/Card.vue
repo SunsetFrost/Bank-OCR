@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { mapState, mapMutations } from "vuex";
+import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
 import {
   Button,
   Cell,
@@ -55,17 +55,17 @@ import {
   Uploader,
   Dialog,
   Loading,
-  Notify
-} from "vant";
-import BankCard from "../components/BankCard.vue";
+  Notify,
+} from 'vant';
+import { encode } from 'url-safe-base64';
+import BankCard from '../components/BankCard.vue';
 import {
   getCards,
   getCardsByNumber,
   addScan,
   addCard,
-  updateCard
-} from "../service";
-import { encode } from "url-safe-base64";
+  updateCard,
+} from '../service';
 
 Vue.use(Button);
 Vue.use(Cell);
@@ -82,14 +82,14 @@ Vue.use(Notify);
 export default {
   data() {
     return {
-      searchValue: "", // 银行卡搜索值
+      searchValue: '', // 银行卡搜索值
       cardList: [],
 
       isDialogShow: false,
       isScanFinish: false,
 
       card: null,
-      img: ""
+      img: '',
     };
   },
 
@@ -100,18 +100,18 @@ export default {
   },
 
   computed: {
-    ...mapState(["login", "userInfo"])
+    ...mapState(['login', 'userInfo']),
   },
 
   components: {
-    BankCard
+    BankCard,
   },
 
   methods: {
     async onSearch() {
-      if (this.searchValue !== "") {
+      if (this.searchValue !== '') {
         const result = await getCardsByNumber({
-          number: this.searchValue
+          number: this.searchValue,
         });
         this.cardList = result.status ? result.data : [];
       } else {
@@ -126,12 +126,12 @@ export default {
     },
 
     onScan() {
-      this.$router.push("/scan");
+      this.$router.push('/scan');
     },
 
     onAfterRead(file) {
       const imgOrigin = file.content;
-      this.img = encode(imgOrigin.split(",")[1]);
+      this.img = encode(imgOrigin.split(',')[1]);
 
       // 弹出Modal
       this.isDialogShow = true;
@@ -143,39 +143,39 @@ export default {
     // 获取扫描结果并更新状态
     async getScanResult() {
       const result = await addScan({
-        img: this.img
+        img: this.img,
       });
       if (result.status) {
         this.card = {
-          ...result.data
+          ...result.data,
         };
         this.isScanFinish = true;
       } else {
         this.isDialogShow = false;
-        Notify(`识别该银行卡失败`);
+        Notify('识别该银行卡失败');
       }
     },
 
     async onConfirm() {
       if (this.isScanFinish) {
         const result = await updateCard({
-          id: this.card.id
+          id: this.card.id,
         });
         this.getCardList();
       } else {
-        Notify("尚未获取到银行卡结果");
+        Notify('尚未获取到银行卡结果');
       }
       this.isScanFinish = false;
       this.card = null;
-      this.img = "";
+      this.img = '';
     },
 
     onCancel() {
       this.isScanFinish = false;
       this.card = null;
-      this.img = "";
-    }
-  }
+      this.img = '';
+    },
+  },
 };
 </script>
 
